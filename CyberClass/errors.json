@@ -51,6 +51,14 @@
   {
     "code": 601,
     "en": "No execution rights"
+  },
+  {
+    "code": 602,
+    "en": "Admin not found"
+  },
+  {
+    "code": 605,
+    "en": "Material not found"
   }
 
 ]

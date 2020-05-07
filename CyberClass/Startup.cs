@@ -35,7 +35,7 @@ namespace CyberClass
         {
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddNHibernate(
-                "Server=localhost;Port=3306;Uid=root;Pwd=Ivan230691;Database=beauty;SslMode=none;CharSet=utf8mb4;");
+                "Server=localhost;Port=3306;Uid=root;Pwd=Ivan230691;Database=cyber;SslMode=none;CharSet=utf8mb4;");
 
             services.AddCors();
             services.AddControllers(options =>

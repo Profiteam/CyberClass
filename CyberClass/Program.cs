@@ -29,7 +29,7 @@ namespace CyberClass
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://*:777")
+                //.UseUrls("http://*:777")
                 .UseIISIntegration()
                 .Build();
     }

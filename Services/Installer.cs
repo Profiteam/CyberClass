@@ -9,6 +9,7 @@ namespace Services
         {
             container
                 .AddScoped<IUserService, UserService>()
+                .AddScoped<IAccountService, AccountService>()
                 .AddScoped<IRatingService, RatingService>()
                 .AddScoped<IMaterialService, MaterialService>()
                 .AddScoped<ILessonService, LessonService>()

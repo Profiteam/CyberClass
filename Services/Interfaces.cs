@@ -30,7 +30,7 @@ namespace Services
 
     public interface ILessonService : IBaseCrudService<Lesson>
     {
-
+        IList<LessonNotAuthDTO> GetLessonsNotAutarize(long matId);
     }
 
     public interface IRatingService : IBaseCrudService<Rating>
@@ -40,6 +40,6 @@ namespace Services
 
     public interface IOrderService : IBaseCrudService<Order>
     {
-
+        IList<LessonDTO> GetLessons(long matId, User user);
     }
 }
