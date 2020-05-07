@@ -1,0 +1,56 @@
+﻿[
+  {
+    "code": 1,
+    "en": "Request cannot be null."
+  },
+  {
+    "code": 2,
+    "en": "Required Property Not Found"
+  },
+  {
+    "code": 101,
+    "en": "Email already used."
+  },
+  {
+    "code": 102,
+    "en": "Password lenght must be longer than 6 symbols"
+  },
+  {
+    "code": 103,
+    "en": "Selected City not found"
+  },
+  {
+    "code": 104,
+    "en": "Can't create person. Try later"
+  },
+  {
+    "code": 105,
+    "en": "User Not Create"
+  },
+  {
+    "code": 106,
+    "en": "User Not Found"
+  },
+  {
+    "code": 107,
+    "en": "Incorrect Email format"
+  },
+  {
+    "code": 300,
+    "en": "Invalid recovery code"
+  },
+  {
+    "code": 301,
+    "en": "Invalid confirmation token"
+  },
+
+  {
+    "code": 502,
+    "en": "File empty"
+  },
+  {
+    "code": 601,
+    "en": "No execution rights"
+  }
+
+]
