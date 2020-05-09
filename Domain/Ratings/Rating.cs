@@ -10,7 +10,7 @@ namespace Domain.Ratings
     public class Rating: PersistentObject
     {
         public virtual User User { get; set; }
-        public virtual Lesson Lesson { get; set; }
+        public virtual Material Material { get; set; }
         public virtual RatingType RatingType { get; set; }
         public virtual DateTime Date { get; set; }
     }

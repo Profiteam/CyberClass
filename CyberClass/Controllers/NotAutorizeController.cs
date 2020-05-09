@@ -7,19 +7,25 @@ using System.Threading.Tasks;
 
 namespace CyberClass.Controllers
 {
-    public class LessonNotAutorizeController : BaseController
+    public class NotAutorizeController : BaseController
     {
         private ILessonService LessonService { get; set; }
+        private IRatingService RatingService { get; set; }
 
-        public LessonNotAutorizeController(
-           ILessonService lessonService)
+        public NotAutorizeController(
+           ILessonService lessonService, IRatingService ratingService)
            : base()
         {
             LessonService = lessonService;
+            RatingService = ratingService;
         }
 
         [HttpGet(nameof(GetLessonsNotAutarize))]
         public IActionResult GetLessonsNotAutarize(long matId)
           => Ok(LessonService.GetLessonsNotAutarize(matId));
+
+        [HttpGet(nameof(GetMaterialsNotAutorize))]
+        public IActionResult GetMaterialsNotAutorize()
+          => Ok(RatingService.GetMaterialsNotAutorize());
     }
 }

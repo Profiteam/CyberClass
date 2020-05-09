@@ -9,7 +9,7 @@ namespace DTO.Response
     public class RatingDTO
     {
         public long UserId { get; set; }
-        public long LessonId { get; set; }
+        public long MaterialId { get; set; }
         public RatingType RatingType { get; set; }
         public DateTime Date { get; set; }
 
@@ -20,7 +20,7 @@ namespace DTO.Response
             if (rating == null)
                 return;
             UserId = rating.User.ID;
-            LessonId = rating.Lesson.ID;
+            MaterialId = rating.Material.ID;
             RatingType = rating.RatingType;
             Date = rating.Date;
         }

@@ -1,6 +1,8 @@
 ﻿using Domain.Orders;
 using Domain.Persons;
+using DTO.Request;
 using DTO.Response;
+using Org.BouncyCastle.Ocsp;
 using Storage.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -36,6 +38,23 @@ namespace Services.Services
             }
             return lessons;
 
+        }
+
+        public OrderDTO CreateOrder(CreateOrderDTO request, User user)
+        {
+            var material = MaterialService.GetAll().FirstOrDefault(x => x.ID == request.MaterialID) ?? throw new ServiceErrorException(605);
+
+            var order = new Order
+            {
+                User = user,
+                Material = material,
+                AmountPay = material.Price,
+                Date = DateTime.UtcNow,
+                Status = Domain.Enum.OrderStatus.Paid
+            };
+            Create(order);
+
+            return new OrderDTO(order);
         }
     }
 }

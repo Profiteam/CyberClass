@@ -25,7 +25,7 @@ namespace Services
 
     public interface IMaterialService : IBaseCrudService<Material>
     {
-
+        
     }
 
     public interface ILessonService : IBaseCrudService<Lesson>
@@ -35,11 +35,14 @@ namespace Services
 
     public interface IRatingService : IBaseCrudService<Rating>
     {
-
+        RatingDTO CreateRating(CreateRatingDTO request, User user);
+        IList<MaterialDTO> GetMaterials(User user);
+        IList<MaterialDTO> GetMaterialsNotAutorize();
     }
 
     public interface IOrderService : IBaseCrudService<Order>
     {
+        OrderDTO CreateOrder(CreateOrderDTO request, User user );
         IList<LessonDTO> GetLessons(long matId, User user);
     }
 }

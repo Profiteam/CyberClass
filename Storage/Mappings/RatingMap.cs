@@ -20,7 +20,7 @@ namespace Storage.Mappings
 
 
             References(u => u.User, "id_user");
-            References(u => u.Lesson, "id_lesson");
+            References(u => u.Material, "id_material");
 
             Map(u => u.Deleted, "deleted").Not.Nullable();
         }

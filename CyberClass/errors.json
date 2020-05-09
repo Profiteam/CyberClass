@@ -59,6 +59,9 @@
   {
     "code": 605,
     "en": "Material not found"
+  },
+  {
+    "code": 606,
+    "en": "You have already rated"
   }
-
 ]
