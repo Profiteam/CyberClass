@@ -54,7 +54,7 @@ namespace Services.Services
 
         public UserDTO RegisterUser(CreateUserDTO createUser)
         {
-            var user = userService.GetAll().FirstOrDefault(x => x.Login.Equals(createUser.Name));
+            var user = userService.GetAll().FirstOrDefault(x => x.Login.Equals(createUser.PhoneNumber));
             if (user != null)
                 throw new ServiceErrorException(101);
 

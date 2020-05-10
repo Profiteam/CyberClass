@@ -13,6 +13,7 @@ namespace Services
                 .AddScoped<IRatingService, RatingService>()
                 .AddScoped<IMaterialService, MaterialService>()
                 .AddScoped<ILessonService, LessonService>()
+                .AddScoped<IActivationCodeService, ActivationCodeService>()
                 .AddScoped<IOrderService, OrderService>();
         }
     }

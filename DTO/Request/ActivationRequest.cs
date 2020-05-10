@@ -5,12 +5,11 @@ using System.Text;
 
 namespace DTO.Request
 {
-    public class CreateUserDTO
+    public class ActivationRequest
     {
         [Required]
-        public string PhoneNumber { get; set; }
-        [Required]
-        public string Password { get; set; }
+        public string Login { get; set; }
 
+        public string Code { get; set; }
     }
 }

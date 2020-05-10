@@ -28,6 +28,11 @@ namespace Services
         
     }
 
+    public interface IActivationCodeService : IBaseCrudService<ActivationCode>
+    {
+        
+    }
+
     public interface ILessonService : IBaseCrudService<Lesson>
     {
         IList<LessonNotAuthDTO> GetLessonsNotAutarize(long matId);

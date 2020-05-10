@@ -7,7 +7,7 @@ namespace DTO.Response
 {
     public class PersonDTO
     {
-        public string Name { get; set; }
+        public string PhoneNumber { get; set; }
 
         public PersonDTO()
         { }
@@ -16,7 +16,7 @@ namespace DTO.Response
         {
             if (person == null)
                 return;
-            Name = person.Name;
+            PhoneNumber = person.PhoneNumber;
         }
     }
 }

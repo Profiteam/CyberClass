@@ -6,15 +6,19 @@ using System.Text;
 
 namespace Storage.Mappings
 {
-    public class PersonMap : ClassMap<Person>
+    public class ActivationCodeMap : ClassMap<ActivationCode>
     {
-        public PersonMap()
+        public ActivationCodeMap()
         {
-            Table("persons");
+            Table("activation_codes");
 
             Id(u => u.ID, "id");
 
-            Map(u => u.PhoneNumber, "phone_number");
+
+            Map(u => u.Code, "code");
+            Map(u => u.Date, "date");
+
+            References(e => e.User, "id_user");
 
             Map(u => u.Deleted, "deleted").Not.Nullable();
         }

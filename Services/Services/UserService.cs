@@ -20,14 +20,14 @@ namespace Services.Services
 
             var user = new User
             {
-                Login = createUser.Name,
+                Login = createUser.PhoneNumber,
                 Password = CryptHelper.CreateMD5(createUser.Password),
-                Activated = true,
+                Activated = false,
                 UserType = Domain.Enum.UserType.User,
                 RegistrationDate = DateTime.UtcNow,
                 Person = new Person
                 {
-                    Name = createUser.Name
+                    PhoneNumber = createUser.PhoneNumber
                 }
             };
 
