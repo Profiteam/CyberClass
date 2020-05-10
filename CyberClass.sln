@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{2D2E5786-1B39-431E-BD8B-D8A3B2DA92B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmsSender", "SmsSender\SmsSender.csproj", "{4BB4D276-986C-445E-8F08-14DD3ED46048}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmsSender", "SmsSender\SmsSender.csproj", "{4BB4D276-986C-445E-8F08-14DD3ED46048}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations", "Migrations\Migrations.csproj", "{0D529F54-12C6-48B4-9805-2BE79176F5EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{4BB4D276-986C-445E-8F08-14DD3ED46048}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BB4D276-986C-445E-8F08-14DD3ED46048}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BB4D276-986C-445E-8F08-14DD3ED46048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D529F54-12C6-48B4-9805-2BE79176F5EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D529F54-12C6-48B4-9805-2BE79176F5EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D529F54-12C6-48B4-9805-2BE79176F5EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D529F54-12C6-48B4-9805-2BE79176F5EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

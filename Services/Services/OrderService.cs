@@ -30,7 +30,7 @@ namespace Services.Services
             foreach (var lesson in LessonService.GetAll().Where(x => x.Material == mat))
             {
                 bool isPaid = false;
-                var paid = GetAll().FirstOrDefault(x => x.Material == mat && x.User == user);
+                var paid = GetAll().FirstOrDefault(x => x.Material == mat && x.User == user && x.Status == Domain.Enum.OrderStatus.Paid);
                 if (paid != null)
                     isPaid = true;
                 lessons.Add(new LessonDTO(lesson, isPaid));
