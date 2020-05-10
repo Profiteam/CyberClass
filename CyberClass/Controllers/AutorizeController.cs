@@ -15,7 +15,7 @@ namespace CyberClass.Controllers
         protected readonly User user;
         public AuthorizeController(IUserService userService, IHttpContextAccessor contextAccessor)
         {
-            user = userService.GetAll().First(x => x.Login == contextAccessor.HttpContext.User.Identity.Name);
+            user = userService.GetAll().First(x => x.Login == contextAccessor.HttpContext.User.Identity.Name && x.Activated == true);
 
         }
     }
