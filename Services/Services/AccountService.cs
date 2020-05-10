@@ -44,7 +44,7 @@ namespace Services.Services
                 x.Password == CryptHelper.CreateMD5(password));
 
             if (user == null)
-                throw new ServiceErrorException(602);
+                throw new ServiceErrorException(106);
 
 
             var identity = GetIdentity(user);

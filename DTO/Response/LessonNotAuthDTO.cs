@@ -14,6 +14,7 @@ namespace DTO.Response
         public LessonType LessonType { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Preview { get; set; }
         public double Duration { get; set; }
 
         public LessonNotAuthDTO() { }
@@ -29,6 +30,7 @@ namespace DTO.Response
             LessonType = lesson.LessonType;
             Description = lesson.Description;
             Duration = lesson.Duration;
+            Preview = lesson.Preview;
         }
     }
 }

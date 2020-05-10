@@ -17,6 +17,7 @@ namespace Storage.Mappings
 
             Map(u => u.Number, "number");
             Map(u => u.Name, "name");
+            Map(u => u.Preview, "preview");
             Map(u => u.Url, "url");
             Map(u => u.Description, "description");
             Map(u => u.LessonType, "lesson_type").CustomType<LessonType>();

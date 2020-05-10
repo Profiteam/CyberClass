@@ -16,6 +16,7 @@ namespace DTO.Response
         public string Url { get; set; }
         public string Description { get; set; }
         public double Duration { get; set; }
+        public string Preview { get; set; }
         public bool IsPaid { get; set; }
 
         public LessonDTO() { }
@@ -30,6 +31,7 @@ namespace DTO.Response
             Name = lesson.Name;
             LessonType = lesson.LessonType;
             Description = lesson.Description;
+            Preview = lesson.Preview;
             Url = lesson.LessonType == LessonType.Free || isPaid == true ? lesson.Url : null;
             Duration = lesson.Duration;
             

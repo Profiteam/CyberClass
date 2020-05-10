@@ -12,6 +12,7 @@ namespace Domain.Materials
         public virtual int Number { get; set; }
         public virtual string Name { get; set; }
         public virtual string Url { get; set; }
+        public virtual string Preview { get; set; }
         public virtual string Description { get; set; }
         public virtual double Duration { get; set; }
     }
