@@ -21,7 +21,7 @@ namespace Services.Services
         public async Task<ProfileDTO> SetAvatar(IFormFile file, User user)
         {
             if (file == null)
-                throw new ServiceErrorException(702);
+                throw new ServiceErrorException(502);
             var fileName = $"{CryptHelper.CreateMD5(DateTime.Now.ToString())}{Path.GetExtension(file.FileName)}";
             var path = $"{System.IO.Directory.GetCurrentDirectory()}/Files/";
             if (!Directory.Exists(path))

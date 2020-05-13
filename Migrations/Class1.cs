@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Migrations
 {
-    [Migration(1)]
+    [Migration(2)]
     public class Class1 : Migration
     {
         public override void Up()

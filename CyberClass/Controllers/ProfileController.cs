@@ -27,7 +27,7 @@ namespace CyberClass.Controllers
         public IActionResult GetMyProfile()
           => Ok(UserService.GetMyProfile(user));
 
-        [HttpGet(nameof(EditMyProfile))]
+        [HttpPost(nameof(EditMyProfile))]
         public IActionResult EditMyProfile([FromBody] EditProfileDTO request)
           => Ok(UserService.EditMyProfile(request, user));
 
