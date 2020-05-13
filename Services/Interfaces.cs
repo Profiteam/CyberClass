@@ -5,6 +5,7 @@ using Domain.Ratings;
 using DTO.Request;
 using DTO.Response;
 using Microsoft.AspNetCore.Http;
+using Remotion.Linq.Clauses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace Services
     public interface IUserService : IBaseCrudService<User>
     {
         User CreateUser(CreateUserDTO createUser);
+        ProfileDTO GetMyProfile(User user);
+        ProfileDTO EditMyProfile(EditProfileDTO request, User user);
     }
 
     public interface IAccountService : IBaseCrudService<UserSession>
@@ -31,6 +34,10 @@ namespace Services
     public interface IActivationCodeService : IBaseCrudService<ActivationCode>
     {
         
+    }
+    public interface IPersonService : IBaseCrudService<Person>
+    {
+        Task<ProfileDTO> SetAvatar(IFormFile file,  User user);
     }
 
     public interface ILessonService : IBaseCrudService<Lesson>
