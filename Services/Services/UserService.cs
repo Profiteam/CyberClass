@@ -19,6 +19,8 @@ namespace Services.Services
 
         public User CreateUser(CreateUserDTO createUser)
         {
+            if (!SMTPHelper.EmailIsValid(createUser.Email))
+                throw new ServiceErrorException(107);
 
             var user = new User
             {
@@ -29,6 +31,8 @@ namespace Services.Services
                 RegistrationDate = DateTime.UtcNow,
                 Person = new Person
                 {
+                    NickName = createUser.NickName,
+                    Email = createUser.Email,
                     PhoneNumber = createUser.PhoneNumber
                 }
             };
@@ -39,6 +43,9 @@ namespace Services.Services
 
         public ProfileDTO EditMyProfile(EditProfileDTO request, User user)
         {
+            if (!SMTPHelper.EmailIsValid(request.Email))
+                throw new ServiceErrorException(107);
+
             user.Person.Email = request.Email;
             user.Person.Facebook = request.Facebook;
             user.Person.NickName = request.NickName;

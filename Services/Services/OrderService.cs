@@ -56,5 +56,22 @@ namespace Services.Services
 
             return new OrderDTO(order);
         }
+
+        public IList<LessonDTO> GetPaidLessons(User user)
+        {
+            var result = new List<LessonDTO>();
+
+            var buyMaterials = GetAll().Where(x => x.User == user && x.Status == Domain.Enum.OrderStatus.Paid).Select(x => x.Material).ToList();
+
+            foreach(var buyMaterial in buyMaterials)
+            {              
+                foreach (var lesson in LessonService.GetAll().Where(x => x.Material == buyMaterial))
+                {
+                    result.Add(new LessonDTO(lesson, true));
+                }
+            }
+
+            return result;
+        }
     }
 }

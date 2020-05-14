@@ -32,5 +32,9 @@ namespace CyberClass.Controllers
         public IActionResult GetMaterials()
           => Ok(RatingService.GetMaterials(user));
 
+        [HttpGet(nameof(GetPaidLessons))]
+        public IActionResult GetPaidLessons()
+          => Ok(OrderService.GetPaidLessons(user));
+
     }
 }
