@@ -20,7 +20,7 @@ namespace CyberClass.Controllers
 
         }
 
-        [HttpGet(nameof(CreateSub))]
+        [HttpPost(nameof(CreateSub))]
         public IActionResult CreateSub([FromBody] CreateSubDTO create)
           => Ok(SubService.CreateSub(create));
 
