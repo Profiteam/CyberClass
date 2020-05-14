@@ -10,16 +10,10 @@ namespace Migrations
     {
         public override void Up()
         {
-            Create.Column("nick_name").OnTable("persons").AsString();
-            Create.Column("avatar").OnTable("persons").AsString();
-            Create.Column("email").OnTable("persons").AsString();
-            Create.Column("instagram").OnTable("persons").AsString();
-            Create.Column("facebook").OnTable("persons").AsString();
-            Create.Column("twitch").OnTable("persons").AsString();
-            Create.Column("vk").OnTable("persons").AsString();
-
-
-
+            Create.Table("subs").WithColumn("id").AsInt32()
+                                .WithColumn("email").AsString()
+                                .WithColumn("date").AsDateTime()
+                                .WithColumn("deleted").AsBoolean();
 
         }
 

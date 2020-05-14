@@ -30,6 +30,11 @@ namespace Services
     {
         
     }
+    public interface ISubService : IBaseCrudService<Sub>
+    {
+        bool CreateSub(CreateSubDTO request);
+        IList<SubDTO> GetSubs();
+    }
 
     public interface IActivationCodeService : IBaseCrudService<ActivationCode>
     {
