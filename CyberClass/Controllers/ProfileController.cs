@@ -13,6 +13,7 @@ namespace CyberClass.Controllers
     {
         private IPersonService PersonService { get; set; }
         private IUserService UserService { get; set; }
+        private IHttpContextAccessor ContextAccessor { get; set; }
 
         public ProfileController(IUserService userService,
            IHttpContextAccessor contextAccessor,
@@ -21,6 +22,7 @@ namespace CyberClass.Controllers
         {
             PersonService = personService;
             UserService = userService;
+            ContextAccessor = contextAccessor;
         }
 
         [HttpGet(nameof(GetMyProfile))]
@@ -31,9 +33,12 @@ namespace CyberClass.Controllers
         public IActionResult EditMyProfile([FromBody] EditProfileDTO request)
           => Ok(UserService.EditMyProfile(request, user));
 
-        [HttpPost (nameof(SetAvatar))]
-        public async Task<IActionResult> SetAvatar(IFormFile file) =>
-            Ok(await PersonService.SetAvatar(file, user));
+        [HttpPost(nameof(SetAvatar))]
+        public async Task<IActionResult> SetAvatar(IFormFile file)
+        {
+            
+            return Ok(await PersonService.SetAvatar(file, user));
+        }
 
     }
 }

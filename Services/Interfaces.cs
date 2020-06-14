@@ -61,6 +61,6 @@ namespace Services
     {
         OrderDTO CreateOrder(CreateOrderDTO request, User user );
         IList<LessonDTO> GetLessons(long matId, User user);
-        IList<LessonDTO> GetPaidLessons(User user);
+        IList<LessonDTO> GetPaidLessons(User user, string ipAddress);
     }
 }

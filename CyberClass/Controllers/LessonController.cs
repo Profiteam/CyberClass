@@ -13,6 +13,7 @@ namespace CyberClass.Controllers
         private IOrderService OrderService { get; set; }
         private IRatingService RatingService { get; set; }
         private IUserService UserService { get; set; }
+        private IHttpContextAccessor ContextAccessor { get; set; }
 
         public LessonController(IUserService userService, IRatingService ratingService,
            IHttpContextAccessor contextAccessor,
@@ -22,6 +23,7 @@ namespace CyberClass.Controllers
             OrderService = orderService;
             UserService = userService;
             RatingService = ratingService;
+            ContextAccessor = contextAccessor;
         }
 
         [HttpGet(nameof(GetLessons))]
@@ -34,7 +36,11 @@ namespace CyberClass.Controllers
 
         [HttpGet(nameof(GetPaidLessons))]
         public IActionResult GetPaidLessons()
-          => Ok(OrderService.GetPaidLessons(user));
+        {
+           string ipAddress = ContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+           return Ok(OrderService.GetPaidLessons(user, ipAddress));
+        }
+        
 
     }
 }

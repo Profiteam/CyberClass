@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Utils;
 
 namespace Services.Services
 {
@@ -26,6 +27,7 @@ namespace Services.Services
 
             var mat = MaterialService.GetAll().FirstOrDefault(x => x.ID == matId) ?? throw new ServiceErrorException(605);
 
+            
             var lessons = new List<LessonDTO>();
             foreach (var lesson in LessonService.GetAll().Where(x => x.Material == mat))
             {
@@ -57,8 +59,12 @@ namespace Services.Services
             return new OrderDTO(order);
         }
 
-        public IList<LessonDTO> GetPaidLessons(User user)
+        public IList<LessonDTO> GetPaidLessons(User user, string ipAddress)
         {
+
+            string key = "Amo2R5chkTTsFq";
+            string domain = "https://cyberclass-vod-hls.cdnvideo.ru";
+            var time = DateTimeOffset.UtcNow.AddDays(2).ToUnixTimeSeconds();
             var result = new List<LessonDTO>();
 
             var buyMaterials = GetAll().Where(x => x.User == user && x.Status == Domain.Enum.OrderStatus.Paid).Select(x => x.Material).ToList();
@@ -67,7 +73,29 @@ namespace Services.Services
             {              
                 foreach (var lesson in LessonService.GetAll().Where(x => x.Material == buyMaterial))
                 {
-                    result.Add(new LessonDTO(lesson, true));
+                    if (lesson.Url.Contains("/playlist"))
+                    {
+                        var e = lesson.Url.IndexOf("/playlist");
+
+                        var streamName = lesson.Url[domain.Length..e];
+
+                        var md5 = CryptHelper.CreateMD5($"{key}:{time}:{ipAddress}:{streamName}");
+                        lesson.Url = ($"{lesson.Url}?e={time}&md5={md5}");
+                        result.Add(new LessonDTO(lesson, true));
+                    }
+                    if (lesson.Url.Contains("/chunklist"))
+                    {
+                        var e = lesson.Url.IndexOf("/chunklist");
+
+                        var streamName = lesson.Url[domain.Length..e];
+
+                        var md5 = CryptHelper.CreateMD5($"{key}:{time}:{ipAddress}:{streamName}");
+                        lesson.Url = ($"{lesson.Url}?e={time}&md5={md5}");
+                        result.Add(new LessonDTO(lesson, true));
+                    }
+                    else
+                        throw new ServiceErrorException(707);
+
                 }
             }
 
