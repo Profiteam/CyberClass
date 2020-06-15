@@ -11,5 +11,8 @@ namespace Utils
 
         public static string Base64Decode(string base64EncodedData)
             => System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(base64EncodedData));
+
+        public static string Base64Encode(byte[] bytes)
+            => System.Convert.ToBase64String(bytes);
     }
 }

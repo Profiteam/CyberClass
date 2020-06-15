@@ -24,6 +24,39 @@ namespace Utils
             }
         }
 
+        public static string GetMd5Hash(string input)
+        {
+            using (var md5 = MD5.Create())
+            {
+                // Convert the input string to a byte array and compute the hash.
+                byte[] data = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+                // Create a new Stringbuilder to collect the bytes
+                // and create a string.
+                StringBuilder sBuilder = new StringBuilder();
+
+                // Loop through each byte of the hashed data
+                // and format each one as a hexadecimal string.
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString());
+                }
+
+                // Return the hexadecimal string.
+                return sBuilder.ToString();
+            }
+        }
+
+        public static byte[] Md5Sum_Raw(string strToEncrypt)
+        {
+            System.Text.UTF8Encoding ue = new System.Text.UTF8Encoding();
+            byte[] bytes = ue.GetBytes(strToEncrypt);
+
+            // encrypt bytes
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            return md5.ComputeHash(bytes);
+        }
+
         public static string HashSHA1(string stringToHash)
         {
             using (var sha1 = new SHA1Managed())

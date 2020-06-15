@@ -37,8 +37,8 @@ namespace CyberClass.Controllers
         [HttpGet(nameof(GetPaidLessons))]
         public IActionResult GetPaidLessons()
         {
-           string ipAddress = ContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
-           return Ok(OrderService.GetPaidLessons(user, ipAddress));
+            string ipAddress = ContextAccessor.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+            return Ok(OrderService.GetPaidLessons(user, ipAddress));
         }
         
 

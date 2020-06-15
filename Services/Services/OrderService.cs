@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 using Utils;
 
 namespace Services.Services
@@ -71,26 +72,28 @@ namespace Services.Services
 
             foreach(var buyMaterial in buyMaterials)
             {              
-                foreach (var lesson in LessonService.GetAll().Where(x => x.Material == buyMaterial))
+                foreach (var lesson in LessonService.GetAll().Where(x => x.Material == buyMaterial).ToList())
                 {
                     if (lesson.Url.Contains("/playlist"))
                     {
                         var e = lesson.Url.IndexOf("/playlist");
 
                         var streamName = lesson.Url[domain.Length..e];
-
-                        var md5 = CryptHelper.CreateMD5($"{key}:{time}:{ipAddress}:{streamName}");
-                        lesson.Url = ($"{lesson.Url}?e={time}&md5={md5}");
+                        var url = HttpUtility.UrlDecode($"{key}:{time}:{ipAddress}:{streamName}");
+                        var md5 = CryptHelper.Md5Sum_Raw(url);
+                        var base64md5 = Base64Helper.Base64Encode(md5).Replace("+", "-").Replace("/", "_").Replace("=","");
+                        lesson.Url = ($"{lesson.Url}?e={time}&md5={base64md5}");
                         result.Add(new LessonDTO(lesson, true));
                     }
-                    if (lesson.Url.Contains("/chunklist"))
+                    else if (lesson.Url.Contains("/chunklist"))
                     {
                         var e = lesson.Url.IndexOf("/chunklist");
 
                         var streamName = lesson.Url[domain.Length..e];
-
-                        var md5 = CryptHelper.CreateMD5($"{key}:{time}:{ipAddress}:{streamName}");
-                        lesson.Url = ($"{lesson.Url}?e={time}&md5={md5}");
+                        var url = HttpUtility.UrlDecode($"{key}:{time}:{ipAddress}:{streamName}");
+                        var md5 = CryptHelper.Md5Sum_Raw(url);
+                        var base64md5 = Base64Helper.Base64Encode(md5).Replace("+", "-").Replace("/", "_").Replace("=", "");
+                        lesson.Url = ($"{lesson.Url}?e={time}&md5={base64md5}");
                         result.Add(new LessonDTO(lesson, true));
                     }
                     else
