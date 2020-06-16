@@ -10,11 +10,7 @@ namespace Migrations
     {
         public override void Up()
         {
-            Create.Table("subs").WithColumn("id").AsInt32()
-                                .WithColumn("email").AsString()
-                                .WithColumn("date").AsDateTime()
-                                .WithColumn("deleted").AsBoolean();
-
+            
         }
 
         public override void Down()
