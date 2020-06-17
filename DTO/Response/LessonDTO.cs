@@ -34,6 +34,7 @@ namespace DTO.Response
             Preview = lesson.Preview;
             Url = lesson.LessonType == LessonType.Free || isPaid == true ? lesson.Url : null;
             Duration = lesson.Duration;
+            IsPaid = isPaid;
             
         }
     }

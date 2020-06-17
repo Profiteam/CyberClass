@@ -50,27 +50,5 @@ namespace CyberClass.Controllers
             return Ok(true);
         }
 
-        [HttpGet(nameof(CheckCode))]
-        public IActionResult CheckCode(string code, string login)
-        {
-            if (string.IsNullOrEmpty(code))
-                throw new ServiceErrorException(2);
-
-            if (string.IsNullOrEmpty(login))
-                throw new ServiceErrorException(2);
-
-            var user = UserService.GetAll().FirstOrDefault(x => x.Login.Equals(login));
-            if (user == null)
-                throw new ServiceErrorException(106);
-
-            var activationCode = ActivationCodeService.GetAll().FirstOrDefault(x => x.Code.Equals(code) && x.User.ID == user.ID);
-            if (activationCode == null)
-                throw new ServiceErrorException(300);
-
-            user.Activated = true;
-            UserService.Update(user);
-
-            return Ok();
-        }
     }
 }

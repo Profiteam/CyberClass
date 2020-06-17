@@ -20,7 +20,11 @@ namespace CyberClass.Controllers
 
         [HttpPost(nameof(AuthUser))]
         public IActionResult AuthUser([FromBody]AuthRequest authRequest)
-            => Ok(accountService.AuthUser(authRequest.Login, authRequest.Password));
+            => Ok(accountService.AuthUser(authRequest));
+
+        [HttpPost(nameof(CheckCode))]
+        public IActionResult CheckCode(string login, string code)
+            => Ok(accountService.CheckCode(login, code));
 
         [HttpPost(nameof(AuthAdmin))]
         public IActionResult AuthAdmin([FromBody]AuthRequest authRequest)

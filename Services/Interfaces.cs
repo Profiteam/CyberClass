@@ -22,7 +22,8 @@ namespace Services
     public interface IAccountService : IBaseCrudService<UserSession>
     {
         SignInDTO AuthAdmin(string login, string password);
-        SignInDTO AuthUser(string login, string password);
+        bool AuthUser(AuthRequest authRequest);
+        SignInDTO CheckCode(string login, string code);
         UserDTO RegisterUser(CreateUserDTO createUser);
     }
 
