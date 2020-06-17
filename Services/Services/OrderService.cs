@@ -83,7 +83,7 @@ namespace Services.Services
                         var md5 = CryptHelper.Md5Sum_Raw(url);
                         var base64md5 = Base64Helper.Base64Encode(md5).Replace("+", "-").Replace("/", "_").Replace("=","");
                         lesson.Url = ($"{lesson.Url}?e={time}&md5={base64md5}").Replace("http: ", "").Replace("https: ", "");
-                        lesson.Url = $"//playercdn.cdnvideo.ru/aloha/players/cyberclass_player1.html?source={lesson.Url}";
+                        lesson.Url = $"//playercdn.cdnvideo.ru/aloha/players/cyberclass_player1.html?source={HttpUtility.UrlEncode(lesson.Url)}";
                         result.Add(new LessonDTO(lesson, true));
                     }
                     else if (lesson.Url.Contains("/chunklist"))
@@ -95,11 +95,9 @@ namespace Services.Services
                         var md5 = CryptHelper.Md5Sum_Raw(url);
                         var base64md5 = Base64Helper.Base64Encode(md5).Replace("+", "-").Replace("/", "_").Replace("=", "");
                         lesson.Url = ($"{lesson.Url}?e={time}&md5={base64md5}").Replace("http: ", "").Replace("https: ", "");
-                        lesson.Url = $"//playercdn.cdnvideo.ru/aloha/players/cyberclass_player1.html?source={lesson.Url}";
+                        lesson.Url = $"//playercdn.cdnvideo.ru/aloha/players/cyberclass_player1.html?source={HttpUtility.UrlEncode(lesson.Url)}";
                         result.Add(new LessonDTO(lesson, true));
                     }
-                    else
-                        throw new ServiceErrorException(707);
 
                 }
             }
