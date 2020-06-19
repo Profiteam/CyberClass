@@ -33,10 +33,24 @@ namespace DTO.Response
             LessonType = lesson.LessonType;
             Description = lesson.Description;
             Preview = lesson.Preview;
-            Videos = new List<VideoDTO>(lesson.Videos.Select(x => new VideoDTO()));
             Duration = lesson.Duration;
+            IsPaid = isPaid;          
+        }
+
+        public LessonDTO(Lesson lesson, List<VideoDTO> videos, bool isPaid)
+        {
+            if (lesson == null)
+                return;
+            ID = lesson.ID;
+            MaterialID = lesson.Material.ID;
+            Number = lesson.Number;
+            Name = lesson.Name;
+            LessonType = lesson.LessonType;
+            Description = lesson.Description;
+            Preview = lesson.Preview;
+            Duration = lesson.Duration;
+            Videos = videos;
             IsPaid = isPaid;
-            
         }
     }
 }

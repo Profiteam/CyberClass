@@ -5,13 +5,12 @@ using System.Text;
 
 namespace Migrations
 {
-    [Migration(4)]
+    [Migration(5)]
     public class Class1 : Migration
     {
         public override void Up()
         {
-            Create.Table("videos").WithColumn("id").AsInt32()
-                .WithColumn("format").AsString().WithColumn("id_lesson").AsInt32().WithColumn("deleted").AsBoolean();
+            Create.Column("url").OnTable("videos").AsString();
         }
 
         public override void Down()
