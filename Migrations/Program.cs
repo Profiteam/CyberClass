@@ -48,7 +48,7 @@ namespace Migrations
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
 
             // Execute the migrations
-            runner.MigrateUp(3);
+            runner.MigrateUp(4);
         }
     }
 }

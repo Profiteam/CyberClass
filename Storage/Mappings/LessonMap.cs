@@ -23,6 +23,11 @@ namespace Storage.Mappings
             Map(u => u.LessonType, "lesson_type").CustomType<LessonType>();
             Map(u => u.Duration, "duration");
 
+            HasMany(x => x.Videos)
+               .Inverse()
+               .Cascade.All()
+               .KeyColumn("id_lesson");
+
             References(u => u.Material, "id_material");
 
             Map(u => u.Deleted, "deleted").Not.Nullable();

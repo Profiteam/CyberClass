@@ -2,6 +2,7 @@
 using Domain.Materials;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DTO.Response
@@ -13,7 +14,7 @@ namespace DTO.Response
         public int Number { get; set; }
         public LessonType LessonType { get; set; }
         public string Name { get; set; }
-        public string Url { get; set; }
+        public List<VideoDTO> Videos { get; set; }
         public string Description { get; set; }
         public double Duration { get; set; }
         public string Preview { get; set; }
@@ -32,7 +33,7 @@ namespace DTO.Response
             LessonType = lesson.LessonType;
             Description = lesson.Description;
             Preview = lesson.Preview;
-            Url = lesson.LessonType == LessonType.Free || isPaid == true ? lesson.Url : null;
+            Videos = new List<VideoDTO>(lesson.Videos.Select(x => new VideoDTO()));
             Duration = lesson.Duration;
             IsPaid = isPaid;
             

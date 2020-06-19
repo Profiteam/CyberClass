@@ -14,6 +14,7 @@ namespace Services
                 .AddScoped<IMaterialService, MaterialService>()
                 .AddScoped<ILessonService, LessonService>()
                 .AddScoped<ISubService, SubService>()
+                .AddScoped<IVideoService, VideoService>()
                 .AddScoped<IPersonService, PersonService>()
                 .AddScoped<IActivationCodeService, ActivationCodeService>()
                 .AddScoped<IOrderService, OrderService>();

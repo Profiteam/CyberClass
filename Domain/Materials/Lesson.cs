@@ -15,5 +15,6 @@ namespace Domain.Materials
         public virtual string Preview { get; set; }
         public virtual string Description { get; set; }
         public virtual double Duration { get; set; }
+        public virtual IList<Video> Videos { get; set; }
     }
 }

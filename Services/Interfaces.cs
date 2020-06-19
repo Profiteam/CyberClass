@@ -31,6 +31,10 @@ namespace Services
     {
         
     }
+    public interface IVideoService : IBaseCrudService<Video>
+    {
+
+    }
     public interface ISubService : IBaseCrudService<Sub>
     {
         bool CreateSub(CreateSubDTO request);
