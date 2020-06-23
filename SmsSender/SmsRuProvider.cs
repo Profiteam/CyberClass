@@ -28,7 +28,7 @@ namespace SmsRu
         #region Переменные
 
         String login = "";                             // Логин для доступа к SMS.RU
-        String password = ""; // Пароль для доступа к SMS.RU 
+        String password = ""; // Пароль для доступа к SMS.RU
         String apiId = "02E213E0-79D0-585D-EA54-205B9070409C";
         String partnerId = "";                     // Если вы участвуете в партнерской программе, укажите этот параметр в запросе
         String SmsRuEmail = "";             // Ваш уникальный адрес (для отправки СМС по email)

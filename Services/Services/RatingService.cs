@@ -13,8 +13,10 @@ namespace Services.Services
     public class RatingService : BaseCrudService<Rating>, IRatingService
     {
         private IMaterialService MaterialService { get; set; }
-        public RatingService(IRepository<Rating> repository, IMaterialService materialService) : base(repository)
+        private IOrderService OrderService { get; set; }
+        public RatingService(IRepository<Rating> repository, IMaterialService materialService, IOrderService orderService) : base(repository)
         {
+            OrderService = orderService;
             MaterialService = materialService;
         }
 
@@ -47,6 +49,12 @@ namespace Services.Services
             {
                 int likeCount = GetAll().Where(x => x.Material == material && x.RatingType == Domain.Enum.RatingType.Like).Count();
                 int disLikeCount = GetAll().Where(x => x.Material == material && x.RatingType == Domain.Enum.RatingType.Dislike).Count();
+                bool isPaid = false;
+                var sell = OrderService.GetAll().FirstOrDefault(x => x.User == user && x.Material == material && x.Status == Domain.Enum.OrderStatus.Paid);
+                if (sell != null)
+                {
+                    isPaid = true;
+                }
 
                 bool myLike = false;
                 bool myDislike = false;
@@ -59,7 +67,7 @@ namespace Services.Services
                         myDislike = true;
                 }
                 
-                materials.Add(new MaterialDTO(material, likeCount, disLikeCount, myLike, myDislike));
+                materials.Add(new MaterialDTO(material, likeCount, disLikeCount, myLike, myDislike, isPaid));
             }
 
             return materials;
@@ -71,9 +79,11 @@ namespace Services.Services
 
             foreach (var material in MaterialService.GetAll())
             {
+                
                 int likeCount = GetAll().Where(x => x.Material == material && x.RatingType == Domain.Enum.RatingType.Like).Count();
                 int disLikeCount = GetAll().Where(x => x.Material == material && x.RatingType == Domain.Enum.RatingType.Dislike).Count();
-                materials.Add(new MaterialDTO(material, likeCount, disLikeCount));
+
+                materials.Add(new MaterialDTO(material, likeCount, disLikeCount, false));
             }
 
             return materials;

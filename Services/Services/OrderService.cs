@@ -23,23 +23,43 @@ namespace Services.Services
             LessonService = lessonService;
         }
 
-        public IList<LessonDTO> GetLessons(long matId, User user)
+        public IList<LessonDTO> GetLessons(long matId, string ipAddress, User user)
         {
 
             var mat = MaterialService.GetAll().FirstOrDefault(x => x.ID == matId) ?? throw new ServiceErrorException(605);
+            string key = "Amo2R5chkTTsFq";
+            string domain = "https://cyberclass-vod-hls.cdnvideo.ru";
+            var time = DateTimeOffset.UtcNow.AddDays(2).ToUnixTimeSeconds();
 
-            
-            var lessons = new List<LessonDTO>();
-            foreach (var lesson in LessonService.GetAll().Where(x => x.Material == mat))
+            var result = new List<LessonDTO>();
+            foreach (var lesson in LessonService.GetAll().Where(x => x.Material == mat && x.LessonType == Domain.Enum.LessonType.Free).ToList())
             {
-                bool isPaid = false;
-                var paid = GetAll().FirstOrDefault(x => x.Material == mat && x.User == user && x.Status == Domain.Enum.OrderStatus.Paid);
-                if (paid != null)
-                    isPaid = true;
-                lessons.Add(new LessonDTO(lesson, isPaid));
+                if (lesson.Url.Contains("/playlist"))
+                {
+                    var e = lesson.Url.IndexOf("/playlist");
 
+                    var streamName = lesson.Url[domain.Length..e];
+                    var url = HttpUtility.UrlDecode($"{key}:{time}:{ipAddress}:{streamName}");
+                    var md5 = CryptHelper.Md5Sum_Raw(url);
+                    var base64md5 = Base64Helper.Base64Encode(md5).Replace("+", "-").Replace("/", "_").Replace("=", "");
+                    lesson.Url = ($"{lesson.Url}?e={time}&md5={base64md5}").Replace("http: ", "").Replace("https: ", "");
+                    lesson.Url = $"//playercdn.cdnvideo.ru/aloha/players/cyberclass_player1.html?source={HttpUtility.UrlEncode(lesson.Url)}";
+                    result.Add(new LessonDTO(lesson));
+                }
+                else if (lesson.Url.Contains("/chunklist"))
+                {
+                    var e = lesson.Url.IndexOf("/chunklist");
+
+                    var streamName = lesson.Url[domain.Length..e];
+                    var url = HttpUtility.UrlDecode($"{key}:{time}:{ipAddress}:{streamName}");
+                    var md5 = CryptHelper.Md5Sum_Raw(url);
+                    var base64md5 = Base64Helper.Base64Encode(md5).Replace("+", "-").Replace("/", "_").Replace("=", "");
+                    lesson.Url = ($"{lesson.Url}?e={time}&md5={base64md5}").Replace("http: ", "").Replace("https: ", "");
+                    lesson.Url = $"//playercdn.cdnvideo.ru/aloha/players/cyberclass_player1.html?source={HttpUtility.UrlEncode(lesson.Url)}";
+                    result.Add(new LessonDTO(lesson));
+                }
             }
-            return lessons;
+                return result;
 
         }
 
@@ -60,7 +80,7 @@ namespace Services.Services
             return new OrderDTO(order);
         }
 
-        public IList<LessonDTO> GetPaidLessons(User user, string ipAddress)
+        public IList<LessonDTO> GetPaidLessons(User user, long matId, string ipAddress)
         {
 
             string key = "Amo2R5chkTTsFq";
@@ -68,16 +88,12 @@ namespace Services.Services
             var time = DateTimeOffset.UtcNow.AddDays(2).ToUnixTimeSeconds();
             var result = new List<LessonDTO>();
 
-            var buyMaterials = GetAll().Where(x => x.User == user && x.Status == Domain.Enum.OrderStatus.Paid).Select(x => x.Material).ToList();
-
-            foreach(var buyMaterial in buyMaterials)
-            {              
+            var mat = MaterialService.GetAll().FirstOrDefault(x => x.ID == matId) ?? throw new ServiceErrorException(605);
+            var buyMaterial = GetAll().FirstOrDefault(x => x.User == user && x.Status == Domain.Enum.OrderStatus.Paid && x.Material == mat).Material;
+            
                 foreach (var lesson in LessonService.GetAll().Where(x => x.Material == buyMaterial).ToList())
                 {
-                    foreach(var video in lesson.Videos.ToList())
-                    {
-                        var videos = new List<VideoDTO>();
-                        if (video.Url.Contains("/playlist"))
+                        if (lesson.Url.Contains("/playlist"))
                         {
                             var e = lesson.Url.IndexOf("/playlist");
 
@@ -85,12 +101,11 @@ namespace Services.Services
                             var url = HttpUtility.UrlDecode($"{key}:{time}:{ipAddress}:{streamName}");
                             var md5 = CryptHelper.Md5Sum_Raw(url);
                             var base64md5 = Base64Helper.Base64Encode(md5).Replace("+", "-").Replace("/", "_").Replace("=", "");
-                            video.Url = ($"{lesson.Url}?e={time}&md5={base64md5}").Replace("http: ", "").Replace("https: ", "");
-                            video.Url = $"//playercdn.cdnvideo.ru/aloha/players/cyberclass_player1.html?source={HttpUtility.UrlEncode(lesson.Url)}";
-                            videos.Add(new VideoDTO(video));
-                            result.Add(new LessonDTO(lesson, videos, true));
+                            lesson.Url = ($"{lesson.Url}?e={time}&md5={base64md5}").Replace("http: ", "").Replace("https: ", "");
+                            lesson.Url = $"//playercdn.cdnvideo.ru/aloha/players/cyberclass_player1.html?source={HttpUtility.UrlEncode(lesson.Url)}";
+                            result.Add(new LessonDTO(lesson));
                         }
-                        else if (video.Url.Contains("/chunklist"))
+                        else if (lesson.Url.Contains("/chunklist"))
                         {
                             var e = lesson.Url.IndexOf("/chunklist");
 
@@ -98,16 +113,13 @@ namespace Services.Services
                             var url = HttpUtility.UrlDecode($"{key}:{time}:{ipAddress}:{streamName}");
                             var md5 = CryptHelper.Md5Sum_Raw(url);
                             var base64md5 = Base64Helper.Base64Encode(md5).Replace("+", "-").Replace("/", "_").Replace("=", "");
-                            video.Url = ($"{lesson.Url}?e={time}&md5={base64md5}").Replace("http: ", "").Replace("https: ", "");
-                            video.Url = $"//playercdn.cdnvideo.ru/aloha/players/cyberclass_player1.html?source={HttpUtility.UrlEncode(lesson.Url)}";
-                            videos.Add(new VideoDTO(video));
-                            result.Add(new LessonDTO(lesson, videos, true));
-                        }
-                    }
+                            lesson.Url = ($"{lesson.Url}?e={time}&md5={base64md5}").Replace("http: ", "").Replace("https: ", "");
+                            lesson.Url = $"//playercdn.cdnvideo.ru/aloha/players/cyberclass_player1.html?source={HttpUtility.UrlEncode(lesson.Url)}";
+                            result.Add(new LessonDTO(lesson));
+                        }                    
                 }
-            }
-
             return result;
+
         }
     }
 }

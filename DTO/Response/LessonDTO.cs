@@ -14,15 +14,14 @@ namespace DTO.Response
         public int Number { get; set; }
         public LessonType LessonType { get; set; }
         public string Name { get; set; }
-        public List<VideoDTO> Videos { get; set; }
+        public string Url { get; set; }
         public string Description { get; set; }
         public double Duration { get; set; }
         public string Preview { get; set; }
-        public bool IsPaid { get; set; }
 
         public LessonDTO() { }
 
-        public LessonDTO(Lesson lesson, bool isPaid)
+        public LessonDTO(Lesson lesson)
         {
             if (lesson == null)
                 return;
@@ -30,27 +29,12 @@ namespace DTO.Response
             MaterialID = lesson.Material.ID;
             Number = lesson.Number;
             Name = lesson.Name;
+            Url = lesson.Url;
             LessonType = lesson.LessonType;
             Description = lesson.Description;
             Preview = lesson.Preview;
-            Duration = lesson.Duration;
-            IsPaid = isPaid;          
+            Duration = lesson.Duration;         
         }
 
-        public LessonDTO(Lesson lesson, List<VideoDTO> videos, bool isPaid)
-        {
-            if (lesson == null)
-                return;
-            ID = lesson.ID;
-            MaterialID = lesson.Material.ID;
-            Number = lesson.Number;
-            Name = lesson.Name;
-            LessonType = lesson.LessonType;
-            Description = lesson.Description;
-            Preview = lesson.Preview;
-            Duration = lesson.Duration;
-            Videos = videos;
-            IsPaid = isPaid;
-        }
     }
 }

@@ -65,7 +65,7 @@ namespace Services
     public interface IOrderService : IBaseCrudService<Order>
     {
         OrderDTO CreateOrder(CreateOrderDTO request, User user );
-        IList<LessonDTO> GetLessons(long matId, User user);
-        IList<LessonDTO> GetPaidLessons(User user, string ipAddress);
+        IList<LessonDTO> GetLessons(long matId, string ipAddress, User user);
+        IList<LessonDTO> GetPaidLessons(User user, long matId, string ipAddress);
     }
 }

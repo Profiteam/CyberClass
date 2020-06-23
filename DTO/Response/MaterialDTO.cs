@@ -17,10 +17,11 @@ namespace DTO.Response
         public int DislikeCount { get; set; }
         public bool MyDislike { get; set; }
         public bool MyLike { get; set; }
+        public bool IsPaid { get; set; }
 
         public MaterialDTO() { }
 
-        public MaterialDTO(Material material, int likeCount, int disLikeCount)
+        public MaterialDTO(Material material, int likeCount, int disLikeCount, bool isPaid)
         {
             if (material == null)
                 return;
@@ -32,9 +33,10 @@ namespace DTO.Response
             TotalDuration = material.TotalDuration;
             LikeCount = likeCount;
             DislikeCount = disLikeCount;
+            IsPaid = isPaid;
         }
 
-        public MaterialDTO(Material material, int likeCount, int disLikeCount, bool myLike, bool myDislike)
+        public MaterialDTO(Material material, int likeCount, int disLikeCount, bool myLike, bool myDislike, bool isPaid)
         {
             if (material == null)
                 return;
@@ -48,6 +50,7 @@ namespace DTO.Response
             DislikeCount = disLikeCount;
             MyLike = myLike;
             MyDislike = myDislike;
+            IsPaid = isPaid;
 
         }
 

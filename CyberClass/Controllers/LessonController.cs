@@ -28,17 +28,22 @@ namespace CyberClass.Controllers
 
         [HttpGet(nameof(GetLessons))]
         public IActionResult GetLessons(long matId)
-          => Ok(OrderService.GetLessons(matId, user));
+        {
+            string ipAddress = ContextAccessor.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+
+          return Ok(OrderService.GetLessons(matId, ipAddress, user));
+        }
+        
 
         [HttpGet(nameof(GetMaterials))]
         public IActionResult GetMaterials()
           => Ok(RatingService.GetMaterials(user));
 
         [HttpGet(nameof(GetPaidLessons))]
-        public IActionResult GetPaidLessons()
+        public IActionResult GetPaidLessons(long matId)
         {
             string ipAddress = ContextAccessor.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
-            return Ok(OrderService.GetPaidLessons(user, ipAddress));
+            return Ok(OrderService.GetPaidLessons(user, matId, ipAddress));
         }
         
 
